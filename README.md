@@ -3,6 +3,7 @@ Kaggle Project with team for cse 151
 
 Config:
 Needs BOTH pip and conda environments, add more requirements here as they are added to the project.
+
 Pip:
 ``` 
 cd <path-to-project>
