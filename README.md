@@ -11,6 +11,7 @@ pip install -r requirements.txt
 ```
 Conda:
 Install Conda [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+
 Then run:
 ```
 conda config --prepend channels conda-forge
