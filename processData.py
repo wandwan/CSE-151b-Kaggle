@@ -52,11 +52,11 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
         continue
       result, ans = [np.stack(x, axis=0) for x in split_list(row)]
       if arr is not None:
-        np.append(arr, result, axis=0)
+        arr = np.append(arr, result, axis=0)
       else:
         arr = result
       if out is not None:
-        np.append(out, ans, axis=0)
+        out = np.append(out, ans, axis=0)
       else:
         out = ans
         
