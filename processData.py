@@ -16,7 +16,7 @@ def split_list(lst, debug=False):
   seqs = []
   # If the length of lst is less than 8, pad with [0,0]
   if len(lst) < 8:
-    seq = [list(lst)]
+    seq = list(lst)
     while len(seq) < 8:
       seq.append(np.array([0, 0]))
     if debug:
