@@ -12,6 +12,7 @@ def string_to_array(s):
     return arr
 
 def split_list(lst):
+  ans = np.array([])
   # Initialize an empty list to store the sequences
   seqs = []
   # If the length of lst is less than 8, pad with [0,0]
@@ -21,12 +22,17 @@ def split_list(lst):
       seq.append(np.array([0, 0]))
     seq = np.array(seq)
     seqs.append(seq)
+    np.append(ans, np.array([0,0]), axis=0)
   else:
     # Loop through the list with a step size of 4
     for i in range(0, len(lst) - 7, 1):
       # Slice the list from i to i + 8 and append it to the seqs list
       seqs.append(lst[i:i + 8])
-  return seqs
+      if(i + 8 >= len(lst)):
+        np.append(ans, np.array([0,0]), axis=0)
+      else:
+        np.append(ans, lst[i+8], axis=0)
+  return seqs, ans
 
 
 # Define the chunksize
@@ -45,17 +51,21 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     df = df[df.apply(lambda x: x.shape[0] > 0)]
 
     # Split each row of the POLYLINE column into overlapping sequences of length 8
-    prev = None
+    arr = None
+    out = None
     for row in df:
-       result = split_list(row)
-       if prev is not None:
-          np.append(prev, np.concatenate(result, axis=0), axis=0)
-       else:
-          prev = np.concatenate(result, axis=0)
-
-    # Convert the resulting sequences to a numpy array of shape (n, m, 2) where n is the number of sequences and m is the length of each sequence (which is 8 in this case)
-    arr = np.stack(result)
+      result, ans = split_list(row)
+      if arr is not None:
+        np.append(arr, np.concatenate(result, axis=0), axis=0)
+      else:
+        arr = np.concatenate(result, axis=0)
+      if out is not None:
+        np.append(out, ans, axis=0)
+      else:
+        out = ans
 
     # Save the numpy array to a file
     print(f'Saving chunk {i} with shape {arr.shape}')
+    print(f'Saving chunk {i} with shape {out.shape}')
     np.save(f'train_chunk_{i}.npy', arr)
+    np.save(f'train_ans_{i}.npy', out)
