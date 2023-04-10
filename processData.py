@@ -46,10 +46,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
 
     # Split each row of the POLYLINE column into overlapping sequences of length 8
     prev = None
-    i = 0
     for row in df:
-       print("added row", i)
-       i += 1
        result = split_list(row)
        if prev is not None:
           np.append(prev, np.concatenate(result, axis=0), axis=0)
@@ -60,4 +57,5 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     arr = np.stack(result)
 
     # Save the numpy array to a file
+    print(f'Saving chunk {i} with shape {arr.shape}')
     np.save(f'train_chunk_{i}.npy', arr)
