@@ -31,8 +31,7 @@ def split_list(lst):
       if(i + 8 >= len(lst)):
         np.append(ans, np.array([0,0]), axis=0)
       else:
-        print(lst[i+8])
-        np.append(ans, lst[i+8], axis=0)
+        np.append(ans, np.array(lst[i+8]), axis=0)
   return seqs, ans
 
 
