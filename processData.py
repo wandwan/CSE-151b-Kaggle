@@ -53,6 +53,8 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
        print("added row", i)
        i += 1
        if i == 55:
+          print("debugging")
+          print(row)
           result = split_list(row, debug=True)
        else:
           result = split_list(row)
