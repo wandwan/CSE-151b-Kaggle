@@ -43,16 +43,13 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     # Filter out missing data and select the POLYLINE column
     df = chunk.loc[chunk['MISSING_DATA'] == False, 'POLYLINE']
 
-    # Apply the string_to_array function to the POLYLINE column
-    df = df.map(string_to_array)
-    
-    # Filter out rows that have a length of 0
-    df = df[df.apply(lambda x: x.shape[0] > 0)]
-
     # Split each row of the POLYLINE column into overlapping sequences of length 8
     arr = None
     out = None
     for row in df:
+      row = string_to_array(row)
+      if len(row) == 0:
+        continue
       result, ans = [np.stack(x, axis=0) for x in split_list(row)]
       if arr is not None:
         np.append(arr, result, axis=0)
