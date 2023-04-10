@@ -12,7 +12,7 @@ def string_to_array(s):
     return arr
 
 def split_list(lst):
-  ans = np.array([])
+  ans = []
   # Initialize an empty list to store the sequences
   seqs = []
   # If the length of lst is less than 8, pad with [0,0]
@@ -22,18 +22,16 @@ def split_list(lst):
       seq.append(np.array([0, 0]))
     seq = np.array(seq)
     seqs.append(seq)
-    np.append(ans, np.array([0,0]), axis=0)
+    ans.append(np.array([0,0]))
   else:
     # Loop through the list with a step size of 4
     for i in range(0, len(lst) - 7, 1):
       # Slice the list from i to i + 8 and append it to the seqs list
       seqs.append(lst[i:i + 8])
       if(i + 8 >= len(lst)):
-        np.append(ans, np.array([0,0]), axis=0)
+        ans.append(np.array([0,0]))
       else:
-        np.append(ans, np.array(lst[i+8]), axis=0)
-  print(seqs)
-  print(ans)
+        ans.append(lst[i + 8])
   return seqs, ans
 
 
@@ -62,7 +60,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
       else:
         arr = np.concatenate(result, axis=0)
       if out is not None:
-        np.append(out, ans, axis=0)
+        np.append(out, np.concatenate(ans, axis=0), axis=0)
       else:
         out = ans
 
