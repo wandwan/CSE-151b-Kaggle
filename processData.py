@@ -21,13 +21,13 @@ def split_list(lst):
     while len(seq) < 8:
       seq.append(np.array([0, 0]))
     seq = np.array(seq)
-    seqs.append(np.array(seq))
+    seqs.append(seq)
     ans.append(np.array([0,0]))
   else:
     # Loop through the list with a step size of 4
     for i in range(0, len(lst) - 7, 1):
       # Slice the list from i to i + 8 and append it to the seqs list
-      seqs.append(np.array(lst[i:i + 8]))
+      seqs.append(lst[i:i + 8])
       if(i + 8 >= len(lst)):
         ans.append(np.array([0,0]))
       else:
@@ -55,7 +55,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     arr = None
     out = None
     for row in df:
-      result, ans = [np.concatenate(x, axis=0) for x in split_list(row)]
+      result, ans = [np.stack(x, axis=0) for x in split_list(row)]
       if arr is not None:
         np.append(arr, result, axis=0)
       else:
@@ -65,6 +65,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
       else:
         out = ans
     print(arr)
+    print(out)
     # Save the numpy array to a file
     print(f'Saving chunk {i} with shape {arr.shape}')
     print(f'Saving chunk {i} with shape {out.shape}')
