@@ -54,13 +54,13 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     arr = None
     out = None
     for row in df:
-      result, ans = split_list(row)
+      result, ans = [np.concatenate(x, axis=0) for x in split_list(row)]
       if arr is not None:
-        np.append(arr, np.concatenate(result, axis=0), axis=0)
+        np.append(arr, result, axis=0)
       else:
-        arr = np.concatenate(result, axis=0)
+        arr = result
       if out is not None:
-        np.append(out, np.concatenate(ans, axis=0), axis=0)
+        np.append(out, ans, axis=0)
       else:
         out = ans
 
