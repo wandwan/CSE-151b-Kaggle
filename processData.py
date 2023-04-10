@@ -20,6 +20,8 @@ def split_list(lst, debug=False):
     while len(seq) < 8:
       seq.append([0, 0])
     seq = np.array(seq)
+    if debug:
+       print(seq)
     seqs.append(seq)
   else:
     if debug:
