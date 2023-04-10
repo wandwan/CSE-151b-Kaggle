@@ -64,7 +64,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
         np.append(out, ans, axis=0)
       else:
         out = ans
-
+    print(arr)
     # Save the numpy array to a file
     print(f'Saving chunk {i} with shape {arr.shape}')
     print(f'Saving chunk {i} with shape {out.shape}')
