@@ -19,9 +19,9 @@ def split_list(lst, debug=False):
     seq = [list(lst)]
     while len(seq) < 8:
       seq.append([0, 0])
-    seq = np.array(seq)
     if debug:
        print(seq)
+    seq = np.array(seq)
     seqs.append(seq)
   else:
     if debug:
@@ -55,8 +55,6 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
        print("added row", i)
        i += 1
        if i == 55:
-          print("debugging")
-          print(row)
           result = split_list(row, debug=True)
        else:
           result = split_list(row)
