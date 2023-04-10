@@ -36,11 +36,12 @@ def split_list(lst):
 
 
 # Define the chunksize
-chunksize = 10000
+chunksize = 100
 
 # Read the data in chunks
 for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
-
+    if(i == 2):
+      break
     # Filter out missing data and select the POLYLINE column
     df = chunk.loc[chunk['MISSING_DATA'] == False, 'POLYLINE']
 
