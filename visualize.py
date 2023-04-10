@@ -27,20 +27,6 @@ for polyline in df['POLYLINE']:
     polyline = [ox.nearest_nodes(G, coord[0], coord[1])
                 for coord in polyline]
     all.append(polyline)
-#     fixed_polyline = []
-#     for i in range(len(polyline) - 1):
-#         nodelist = ox.shortest_path(G, polyline[i], polyline[i + 1])
-#         if nodelist is not None:
-#             if len(fixed_polyline) > 0 and fixed_polyline[-1] == nodelist[0]:
-#                 fixed_polyline.extend(nodelist[1:])
-#             else:
-#                 fixed_polyline.extend(nodelist)
-#         else:
-#             if len(fixed_polyline) > 0:
-#                 all.append(fixed_polyline)
-#                 fixed_polyline = []
-#     if len(fixed_polyline) > 0:
-#         all.append(polyline)
 # print(all)
 # print([len(route) for route in all])
 for route in all:
