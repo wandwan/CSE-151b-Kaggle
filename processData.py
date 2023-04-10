@@ -36,12 +36,10 @@ def split_list(lst):
 
 
 # Define the chunksize
-chunksize = 100
+chunksize = 50000
 
 # Read the data in chunks
 for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
-    if(i == 2):
-      break
     # Filter out missing data and select the POLYLINE column
     df = chunk.loc[chunk['MISSING_DATA'] == False, 'POLYLINE']
 
@@ -64,8 +62,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
         np.append(out, ans, axis=0)
       else:
         out = ans
-    print(arr)
-    print(out)
+        
     # Save the numpy array to a file
     print(f'Saving chunk {i} with shape {arr.shape}')
     print(f'Saving chunk {i} with shape {out.shape}')
