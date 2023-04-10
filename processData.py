@@ -11,7 +11,7 @@ def string_to_array(s):
     # Return the numpy array
     return arr
 
-def split_list(lst, debug=False):
+def split_list(lst):
   # Initialize an empty list to store the sequences
   seqs = []
   # If the length of lst is less than 8, pad with [0,0]
@@ -19,13 +19,9 @@ def split_list(lst, debug=False):
     seq = list(lst)
     while len(seq) < 8:
       seq.append(np.array([0, 0]))
-    if debug:
-       print(seq)
     seq = np.array(seq)
     seqs.append(seq)
   else:
-    if debug:
-      print("seqs length", len(lst))
     # Loop through the list with a step size of 4
     for i in range(0, len(lst) - 7, 1):
       # Slice the list from i to i + 8 and append it to the seqs list
@@ -34,7 +30,7 @@ def split_list(lst, debug=False):
 
 
 # Define the chunksize
-chunksize = 100
+chunksize = 10000
 
 # Read the data in chunks
 for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
@@ -54,11 +50,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     for row in df:
        print("added row", i)
        i += 1
-       if i == 55:
-          result = split_list(row, debug=True)
-       else:
-          result = split_list(row)
-       print("result length", len(result))
+       result = split_list(row)
        if prev is not None:
           np.append(prev, np.concatenate(result, axis=0), axis=0)
        else:
