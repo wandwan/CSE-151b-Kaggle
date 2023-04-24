@@ -25,7 +25,7 @@ def split_list(lst):
     ans.append(np.array([0,0]))
   else:
     # Loop through the list with a step size of 4
-    for i in range(0, len(lst) - 7, 1):
+    for i in range(0, len(lst) - 7, 4):
       # Slice the list from i to i + 8 and append it to the seqs list
       seqs.append(lst[i:i + 8])
       if(i + 8 >= len(lst)):
@@ -36,13 +36,12 @@ def split_list(lst):
 
 
 # Define the chunksize
-chunksize = 50000
+chunksize = 1000
 
 # Read the data in chunks
 for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
     # Filter out missing data and select the POLYLINE column
     df = chunk.loc[chunk['MISSING_DATA'] == False, 'POLYLINE']
-
     # Split each row of the POLYLINE column into overlapping sequences of length 8
     arr = None
     out = None
