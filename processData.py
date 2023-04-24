@@ -16,6 +16,7 @@ def split_list(lst):
   lst = [(math.sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2),
           math.atan2(y[1] - x[1], y[0] - x[0])) for x, y in lst]
   lst.insert(0, (0, 0))
+  print(lst)
   ans = []
   # Initialize an empty list to store the sequences
   seqs = []
