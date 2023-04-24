@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math
 import ast
 
 # Define a function that converts a string to a numpy array
@@ -12,6 +13,9 @@ def string_to_array(s):
     return arr
 
 def split_list(lst):
+  lst = [(math.sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2),
+          math.atan2(y[1] - x[1], y[0] - x[0])) for x, y in lst]
+  lst.insert(0, (0, 0))
   ans = []
   # Initialize an empty list to store the sequences
   seqs = []
@@ -58,7 +62,7 @@ for i, chunk in enumerate(pd.read_csv('train.csv', chunksize=chunksize)):
         out = np.append(out, ans, axis=0)
       else:
         out = ans
-        
+    
     # Save the numpy array to a file
     print(f'Saving chunk {i} with shape {arr.shape}')
     print(f'Saving chunk {i} with shape {out.shape}')
