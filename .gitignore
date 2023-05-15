@@ -1,3 +1,7 @@
 *.csv
 /cache
 /env
+cnn.py
+rnn.py
+tokenizer.json
+train.npz
